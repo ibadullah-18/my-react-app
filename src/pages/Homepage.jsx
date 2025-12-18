@@ -1,10 +1,12 @@
 import React from 'react'
-import Navbar from './Navbar'
+import Navbar from '../companents/Navbar'
+import Postcart from '../companents/Postcart'
+
 
 const Homepage = () => {
     return (
         <div className='w-full h-screen flex flex-col items-center'>
-            <Navbar />
+            <Postcart />
         </div>
     )
 }
