@@ -8,17 +8,17 @@ const Navbar = () => {
                 <h1 className='text-2xl '>Meta</h1>
                 <h1 className='text-2xl font-bold mr-[100px]'>Blog</h1>
             </div>
-            <div className='px-55 flex flex-row items-center justify-center gap-15'>
+            <div className='px-10 flex flex-row items-center justify-center gap-10'>
                 <p>Home</p>
                 <p>Write a Blog</p>
                 <p>My Blogs</p>
                 <p>Contact</p>
             </div>
-            <div className='flex flex-row items-center gap-6 ml-auto mr-10'> 
+            <div className='flex flex-row items-center gap-6 ml-auto mr-1'>
                 <div className='flex flex-row items-center relative'>
                     <input
                         type="search"
-                        placeholder='Search'
+                        placeholder='Search'    
                         className=' bg-gray-300 p-1 pl-8 rounded'
                     />
                     <img
