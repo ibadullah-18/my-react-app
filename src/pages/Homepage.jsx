@@ -24,14 +24,14 @@ const Homepage = () => {
     }, [])
 
     const handleLoadMore = () => {
-        setVisibleCount(prev => prev + 3);
+        setVisibleCount(prev => prev + 9);
     };
 
 
     return (
         <div className=''>
             <Navbar />
-            <div className='mt-10 w-full min-h-screen grid grid-cols-3 gap-4 '>
+            <div className='mt-10 w-[1550px] min-h-screen grid grid-cols-3 gap-4 flex-wrap mx-auto'>
                 {posts.slice(0, visibleCount).map((post, index) => (
                     <Postcart key={post._id} post={post} />
                 ))}

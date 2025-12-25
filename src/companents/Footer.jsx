@@ -1,8 +1,9 @@
 import React from 'react'
+import Logo from '../assets/Union.png'
 
 const Footer = () => {
     return (
-        <div className='w-full h-fit bg-gray-100  py-10'>
+        <div className='w-full h-fit bg-gray-100  py-10 '>
             <div className='flex flex-row items-center justify-between w-[1200px] ml-[150px]' >
                 <div className='w-[300px]'>
                     <h1 className='font-bold text-[20px]'>About</h1>
@@ -44,7 +45,7 @@ const Footer = () => {
             <div className='ml-[150px] border-t border-gray-300 w-[1200px] my-5 py-5 '>
                 <div className='flex flex-row items-center justify-between'>
                     <div className='flex flex-row items-center'>
-                        <img className='mx-3' src="src\assets\Union.png" alt="Logo" />
+                        <img className='mx-3' src={Logo} />
                         <h1 className='text-2xl '>Meta</h1>
                         <h1 className='text-2xl font-bold mr-[100px]'>Blog</h1>
                     </div>
