@@ -5,18 +5,18 @@ import { useDarkmode } from '../stores/darkmode'
 const Footer = () => {
     const { isDarkmodeEnabled } = useDarkmode()
     return (
-        <div className={` w-full h-fit py-10 `}>
+        <div className={` w-full h-fit py-10 ${isDarkmodeEnabled ? "bg-black text-white" : "bg-white text-black"}`}>
             <div className='flex flex-row items-center justify-between w-[1200px] ml-[150px]' >
                 <div className='w-[300px]'>
                     <h1 className='font-bold text-[20px]'>About</h1>
-                    <p className='text-gray-600 mt-1'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+                    <p className='text-gray-500 mt-1'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
                     <div className='flex flex-row mt-4'>
                         <h1 className='font-bold '>Email:</h1>
-                        <p className='text-gray-700 pl-1'>info@jstemplate.net</p>
+                        <p className='text-gray-600 pl-1'>info@jstemplate.net</p>
                     </div>
                     <div className='flex flex-row'>
                         <h1 className='font-bold'>Phone:</h1>
-                        <p className='text-gray-700 pl-1'>+123 456 7890</p>
+                        <p className='text-gray-600 pl-1'>+123 456 7890</p>
                     </div>
                 </div>
                 <div className='w-[300px]'>

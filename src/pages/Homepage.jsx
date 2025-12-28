@@ -30,7 +30,7 @@ const Homepage = () => {
 
 
     return (
-        <div className= {`w-full h-fit ${isDarkmodeEnabled ? "bg-black text-white" : "bg-white text-black"}`}>
+        <div className= {`w-full h-fit ${isDarkmodeEnabled ? "bg-gray-900 text-white" : "bg-white text-black"}`}>
 
             <Navbar />
             <div className='mt-10 w-[1550px] min-h-screen mx-auto'>
@@ -57,7 +57,7 @@ const Homepage = () => {
                     </div>
                 )}
             </div>
-            <div className={`${isDarkmodeEnabled ? "bg-black text-white" : "bg-white text-black"} mt-100`}>
+            <div className={`mt-100`}>
                 <Footer />
             </div>
         </div>

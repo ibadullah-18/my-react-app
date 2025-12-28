@@ -33,8 +33,8 @@ const Detalis = () => {
   if (!postDetalis) return null
 
   return (
-    <div  className={` w-full h-fit ${isDarkmodeEnabled ? "bg-black text-white" : "bg-white text-black"}`}> 
-    <div className="w-full max-w-4xl mx-auto p-5 mt-10 mb-30">
+    <div  className={` w-full h-fit ${isDarkmodeEnabled ? "bg-gray-900 text-white" : "bg-white text-black"}`}> 
+    <div className="w-full max-w-4xl mx-auto p-5 pt-10 pb-30">
       <p className="bg-blue-600 text-white font-bold inline-block rounded px-2 py-1 mt-4">
         {postDetalis.category}
       </p>

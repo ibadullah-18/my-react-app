@@ -11,7 +11,7 @@ const Navbar = () => {
     const { isDarkmodeEnabled, toggleDarkmode } = useDarkmode()
 
     return (
-        <div className={` w-full h-fit ${isDarkmodeEnabled ? "bg-black text-white" : "bg-white text-black"}`}>
+        <div className={` w-full h-fit ${isDarkmodeEnabled ? "bg-gray-900 text-white" : "bg-white text-black"}`}>
             <div className='w-full h-[100px] flex flex-row items-center gap-10 px-5'>
                 <div className='flex flex-row items-center'>
                     <img className='mx-3' src={Logo} alt="Logo" />
@@ -38,9 +38,9 @@ const Navbar = () => {
                     </div>
 
                     <div>
-                        <button className={`w-11 h-7 flex items-center bg-zinc-200  rounded-full p-1 cursor-pointer`} onClick={toggleDarkmode}>
+                        <button className={`w-11 h-7 flex items-center bg-zinc-200  rounded-full p-1 cursor-pointer `} onClick={toggleDarkmode}>
                             <div className={`flex items-center justify-center bg-white w-5 h-5 rounded-full shadow-md transform duration-300  ${isDarkmodeEnabled ? "translate-x-4" : ""} `}>
-                                {isDarkmodeEnabled ? <img src={Moon} alt="" /> : <img src={Sunny} alt="" />}
+                                {isDarkmodeEnabled ? <img src={Moon} alt=""  /> : <img src={Sunny} alt="" />}
                             </div>
                         </button>
                     </div>

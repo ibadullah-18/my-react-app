@@ -1,13 +1,16 @@
 import { Link } from "react-router-dom"
+import { useDarkmode } from '../stores/darkmode'
 
 const Postcart = ({ post, isBig }) => {
   const isPosts = true;
+  const { isDarkmodeEnabled } = useDarkmode()
 
   return (
     <Link
       to={`/details/${post._id}`}
       state={true}
       className={`
+        ${isDarkmodeEnabled ? "bg-gray-900 text-white" : "bg-white text-black"}
     relative 
     w-full 
     h-fit 
@@ -20,7 +23,6 @@ const Postcart = ({ post, isBig }) => {
     duration-300
     ${isBig ? "col-span-3" : "col-span-1"}`}
     >
-
       <img
         src={post.image}
         alt=""
