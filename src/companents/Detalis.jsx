@@ -1,5 +1,6 @@
 import { useParams, useLocation, Link } from "react-router-dom"
 import { useState, useEffect } from "react"
+import { useDarkmode } from '../stores/darkmode'
 
 const Detalis = () => {
   const { id } = useParams()
@@ -8,6 +9,7 @@ const Detalis = () => {
 
   const [loading, setLoading] = useState(true)
   const [postDetalis, setPostDetalis] = useState(null)
+  const { isDarkmodeEnabled } = useDarkmode()
 
   const fetchPostDetails = async () => {
     try {
@@ -31,6 +33,7 @@ const Detalis = () => {
   if (!postDetalis) return null
 
   return (
+    <div  className={` w-full h-fit ${isDarkmodeEnabled ? "bg-black text-white" : "bg-white text-black"}`}> 
     <div className="w-full max-w-4xl mx-auto p-5 mt-10 mb-30">
       <p className="bg-blue-600 text-white font-bold inline-block rounded px-2 py-1 mt-4">
         {postDetalis.category}
@@ -59,9 +62,10 @@ const Detalis = () => {
         alt=""
       />
 
-      <p className="mt-6 text-[24px] text-gray-800">
+      <p className="mt-6 text-[24px] text-gray-500">
         {postDetalis.description}
       </p>
+    </div>
     </div>
   )
 }

@@ -2,11 +2,12 @@ import Navbar from '../companents/Navbar'
 import Postcart from '../companents/Postcart'
 import Footer from '../companents/footer'
 import { useState, useEffect } from 'react'
-
+import { useDarkmode } from '../stores/darkmode'
 
 const Homepage = () => {
     const [posts, setPosts] = useState([])
     const [visibleCount, setVisibleCount] = useState(9);
+    const { isDarkmodeEnabled } = useDarkmode()
 
     const getposts = async () => {
         try {
@@ -29,7 +30,8 @@ const Homepage = () => {
 
 
     return (
-        <div className=''>
+        <div className= {`w-full h-fit ${isDarkmodeEnabled ? "bg-black text-white" : "bg-white text-black"}`}>
+
             <Navbar />
             <div className='mt-10 w-[1550px] min-h-screen mx-auto'>
 
@@ -40,7 +42,7 @@ const Homepage = () => {
                             post={post}
                             className={index === 0 ? "col-span-3" : "col-span-1"}
                             isBig={index === 0}
-                            
+
                         />
                     ))}
                 </div>
@@ -55,8 +57,7 @@ const Homepage = () => {
                     </div>
                 )}
             </div>
-
-            <div className='mt-100'>
+            <div className={`${isDarkmodeEnabled ? "bg-black text-white" : "bg-white text-black"} mt-100`}>
                 <Footer />
             </div>
         </div>
