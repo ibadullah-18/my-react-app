@@ -2,8 +2,14 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Logo from '../assets/Union.png'
 import SearchIcon from '../assets/search-outline.png'
+import Sunny from '../assets/sunny.png'
+import Moon from '../assets/night-mode.png'
+import { useDarkmode } from '../stores/darkmode'
+
 
 const Navbar = () => {
+    const { isDarkmodeEnabled, toggleDarkmode } = useDarkmode()
+
     return (
         <div className='w-full h-[100px] flex flex-row items-center gap-10 px-5'>
             <div className='flex flex-row items-center'>
@@ -21,7 +27,7 @@ const Navbar = () => {
                 <div className='flex flex-row items-center relative'>
                     <input
                         type="search"
-                        placeholder='Search'    
+                        placeholder='Search'
                         className=' bg-gray-300 p-1 pl-8 rounded'
                     />
                     <img
@@ -31,7 +37,11 @@ const Navbar = () => {
                 </div>
 
                 <div>
-                    <button className="transition duration ease-in-out bg-black text-white rounded p-2">Dark mode</button>
+                    <button className={`w-11 h-7 flex items-center bg-zinc-200  rounded-full p-1 cursor-pointer`} onClick={toggleDarkmode}>
+                        <div className={`flex items-center justify-center bg-white w-5 h-5 rounded-full shadow-md transform duration-300  ${isDarkmodeEnabled ? "translate-x-4" : ""} `}>
+                            {isDarkmodeEnabled ? <img  src={Moon} alt="" /> : <img src={Sunny} alt="" />}
+                        </div>
+                    </button>
                 </div>
                 <div>
                     <button className="transition duration ease-in-out bg-blue-600 text-white rounded p-2 ">Sing in</button>
