@@ -3,12 +3,13 @@ import { useEffect, useState } from "react"
 import Postcart from "../companents/Postcart"
 import Navbar from "../companents/Navbar"
 import Footer from "../companents/footer"
+import { useDarkmode } from '../stores/darkmode'
 
 const UserPosts = () => {
     const { userId } = useParams()
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(true)
-
+    const { isDarkmodeEnabled, toggleDarkmode } = useDarkmode()
     useEffect(() => {
         const getUserPosts = async () => {
             try {
@@ -30,9 +31,9 @@ const UserPosts = () => {
     if (loading) return <p className="text-center mt-10">Loading...</p>
 
     return (
-        <div>
+        <div className={` w-full h-fit ${isDarkmodeEnabled ? "bg-gray-900 text-white" : "bg-white text-black"}`}>
             <Navbar />
-            <div className="w-full bg-gray-100 max-w-4xl mx-auto p-5 mt-10 mb-10 flex items-center justify-center rounded-lg">
+            <div className={`${isDarkmodeEnabled ? "bg-gray-800 text-white rounded-lg" : "bg-gray-100 text-black rounded-lg"} w-full max-w-4xl mx-auto p-5 mt-10 mb-10 flex items-center justify-center`}>
                 <h1 >
                     {posts.length > 0 ? posts[0].user.email : "User"}
                 </h1>

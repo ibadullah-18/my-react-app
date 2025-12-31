@@ -5,10 +5,14 @@ import SearchIcon from '../assets/search-outline.png'
 import Sunny from '../assets/sunny.png'
 import Moon from '../assets/night-mode.png'
 import { useDarkmode } from '../stores/darkmode'
+import { useSearchStore } from "../stores/search"
+
 
 
 const Navbar = () => {
     const { isDarkmodeEnabled, toggleDarkmode } = useDarkmode()
+    const { search, setSearch } = useSearchStore()
+
 
     return (
         <div className={` w-full h-fit ${isDarkmodeEnabled ? "bg-gray-900 text-white" : "bg-white text-black"}`}>
@@ -28,8 +32,14 @@ const Navbar = () => {
                     <div className='flex flex-row items-center relative'>
                         <input
                             type="search"
-                            placeholder='Search'
-                            className=' bg-gray-300 p-1 pl-8 rounded'
+                            placeholder="Search"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            className={`p-1 pl-8 rounded outline-none
+                            ${isDarkmodeEnabled
+                                    ? "bg-gray-700 text-white placeholder-gray-400"
+                                    : "bg-gray-300 text-black"}
+                            `}
                         />
                         <img
                             src={SearchIcon}
@@ -40,13 +50,13 @@ const Navbar = () => {
                     <div>
                         <button className={`w-11 h-7 flex items-center bg-zinc-200  rounded-full p-1 cursor-pointer `} onClick={toggleDarkmode}>
                             <div className={`flex items-center justify-center bg-white w-5 h-5 rounded-full shadow-md transform duration-300  ${isDarkmodeEnabled ? "translate-x-4" : ""} `}>
-                                {isDarkmodeEnabled ? <img src={Moon} alt=""  /> : <img src={Sunny} alt="" />}
+                                {isDarkmodeEnabled ? <img src={Moon} alt="" /> : <img src={Sunny} alt="" />}
                             </div>
                         </button>
                     </div>
-                    <div>
-                        <button className="transition duration ease-in-out bg-blue-600 text-white rounded p-2 ">Sing in</button>
-                    </div>
+                    <Link to="/login">
+                        <button className="transition duration ease-in-out bg-blue-600 text-white rounded p-2 hover:bg-blue-700">Sing in</button>
+                    </Link>
                 </div>
             </div>
         </div>

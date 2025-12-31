@@ -3,11 +3,15 @@ import Postcart from '../companents/Postcart'
 import Footer from '../companents/footer'
 import { useState, useEffect } from 'react'
 import { useDarkmode } from '../stores/darkmode'
+import { useSearchStore } from "../stores/search"
+
 
 const Homepage = () => {
     const [posts, setPosts] = useState([])
     const [visibleCount, setVisibleCount] = useState(9);
     const { isDarkmodeEnabled } = useDarkmode()
+    const { search } = useSearchStore()
+
 
     const getposts = async () => {
         try {
@@ -28,21 +32,26 @@ const Homepage = () => {
         setVisibleCount(prev => prev + 4);
     };
 
+    const filteredPosts =
+        search.length >= 3
+            ? posts.filter((post) =>
+                post.title
+                    .toLowerCase()
+                    .startsWith(search.toLowerCase())
+            ) : posts
 
     return (
-        <div className= {`w-full h-fit ${isDarkmodeEnabled ? "bg-gray-900 text-white" : "bg-white text-black"}`}>
+        <div className={`w-full h-fit ${isDarkmodeEnabled ? "bg-gray-900 text-white" : "bg-white text-black"}`}>
 
             <Navbar />
             <div className='mt-10 w-[1550px] min-h-screen mx-auto'>
 
                 <div className='grid grid-cols-3 gap-4'>
-                    {posts.slice(0, visibleCount).map((post, index) => (
+                    {filteredPosts.slice(0, visibleCount).map((post, index) => (
                         <Postcart
                             key={post._id}
                             post={post}
-                            className={index === 0 ? "col-span-3" : "col-span-1"}
                             isBig={index === 0}
-
                         />
                     ))}
                 </div>

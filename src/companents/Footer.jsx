@@ -5,7 +5,7 @@ import { useDarkmode } from '../stores/darkmode'
 const Footer = () => {
     const { isDarkmodeEnabled } = useDarkmode()
     return (
-        <div className={` w-full h-fit py-10 ${isDarkmodeEnabled ? "bg-black text-white" : "bg-white text-black"}`}>
+        <div className={` w-full h-fit py-10 ${isDarkmodeEnabled ? "bg-black text-white" : "bg-gray-100 text-black"}`}>
             <div className='flex flex-row items-center justify-between w-[1200px] ml-[150px]' >
                 <div className='w-[300px]'>
                     <h1 className='font-bold text-[20px]'>About</h1>
