@@ -1,11 +1,12 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate, Link } from "react-router-dom"
 import Logo from '../assets/Union.png'
 import SearchIcon from '../assets/search-outline.png'
 import Sunny from '../assets/sunny.png'
 import Moon from '../assets/night-mode.png'
 import { useDarkmode } from '../stores/darkmode'
 import { useSearchStore } from "../stores/search"
+import { getAccessToken, clearTokens } from "../utils/auth"
 
 
 
@@ -13,7 +14,13 @@ const Navbar = () => {
     const { isDarkmodeEnabled, toggleDarkmode } = useDarkmode()
     const { search, setSearch } = useSearchStore()
 
-
+    const navigate = useNavigate()
+    const token = getAccessToken()
+    const handleLogout = () => {
+        clearTokens()
+        navigate("/")
+        window.location.reload()
+    }
     return (
         <div className={` w-full h-fit ${isDarkmodeEnabled ? "bg-gray-900 text-white" : "bg-white text-black"}`}>
             <div className='w-full h-[100px] flex flex-row items-center gap-10 px-5'>
@@ -24,8 +31,13 @@ const Navbar = () => {
                 </div>
                 <div className='px-10 flex flex-row items-center justify-center gap-10'>
                     <Link to="/" className='hover:text-blue-600'>Home</Link>
-                    <Link to="/write" className='hover:text-blue-600'>Write a Blog</Link>
-                    <Link to="/my-blogs" className='hover:text-blue-600'>My Blogs</Link>
+                    <Link
+                        to={getAccessToken() ? "/create-post" : "/login"}
+                        className="hover:text-blue-600">
+                        Write a Blog
+                    </Link>
+                    <Link to="/my-blogs" className="hover:text-blue-600">My Blogs</Link>
+
                     <Link to="/contact" className='hover:text-blue-600'>Contact</Link>
                 </div>
                 <div className='flex flex-row items-center gap-6 ml-auto mr-1'>
@@ -54,9 +66,21 @@ const Navbar = () => {
                             </div>
                         </button>
                     </div>
-                    <Link to="/login">
-                        <button className="transition duration ease-in-out bg-blue-600 text-white rounded p-2 hover:bg-blue-700">Sing in</button>
-                    </Link>
+                    {token ? (
+                        <button
+                            onClick={handleLogout}
+                            className="bg-blue-600 text-white rounded px-4 py-2 hover:bg-blue-700"
+                        >
+                            Log Out
+                        </button>
+                    ) : (
+                        <Link
+                            to="/login"
+                            className="bg-blue-600 text-white rounded px-4 py-2 hover:bg-blue-700"
+                        >
+                            Sign In
+                        </Link>
+                    )}
                 </div>
             </div>
         </div>

@@ -1,28 +1,41 @@
 import { useState } from "react"
-import { loginUser } from "../stores/auth"
+import { useNavigate, Link } from "react-router-dom"
 import { useDarkmode } from "../stores/darkmode"
+import { setAccessToken } from "../utils/auth"
 
 const Login = () => {
+  const { isDarkmodeEnabled } = useDarkmode()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
-  const { isDarkmodeEnabled } = useDarkmode()
+  const [error, setError] = useState("")
+
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setError("")
     setLoading(true)
+    setError("")
 
     try {
-      const data = await loginUser(email, password)
-      localStorage.setItem("accessToken", data.accessToken)
-      if (data.user) {
-        localStorage.setItem("user", JSON.stringify(data.user))
-      }
-      window.location.href = "/"
+      const res = await fetch("https://ilkinibadov.com/api/b/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      })
+
+      const data = await res.json()
+      console.log("LOGIN RESPONSE:", data)
+
+      if (!res.ok) throw new Error(data?.message || "Login failed")
+
+      setAccessToken(data.accessToken)
+
+      alert("Login successful!")
+      navigate("/")
     } catch (err) {
-      setError("Email or password is incorrect.")
+      console.error(err)
+      setError(err.message)
     } finally {
       setLoading(false)
     }
@@ -30,23 +43,16 @@ const Login = () => {
 
   const inputClass = `
     w-full h-15 p-4 mb-3 text-lg rounded outline-none transition
-    ${
-      isDarkmodeEnabled
-        ? "bg-gray-800 text-white placeholder-gray-400 border border-gray-700 focus:border-yellow-400"
-        : "bg-white text-black placeholder-gray-500 border border-gray-300 focus:border-yellow-400"
+    ${isDarkmodeEnabled
+      ? "bg-gray-800 text-white placeholder-gray-400 border border-gray-700 focus:border-yellow-400"
+      : "bg-white text-black placeholder-gray-500 border border-gray-300 focus:border-yellow-400"
     }
   `
 
   return (
-    <div
-      className={`min-h-screen flex items-center justify-center transition-colors duration-300 ${
-        isDarkmodeEnabled ? "bg-gray-900 text-white" : "bg-white text-black"
-      }`}
-    >
+    <div className={`min-h-screen flex items-center justify-center transition-colors duration-300 ${isDarkmodeEnabled ? "bg-gray-900 text-white" : "bg-white text-black"}`}>
       <form onSubmit={handleSubmit} className="w-[700px]">
-        <h2 className="text-4xl font-poppins font-semibold mb-6 text-center">
-          Login
-        </h2>
+        <h2 className="text-4xl font-poppins font-semibold mb-6 text-center">Login</h2>
 
         <input
           type="email"
@@ -66,31 +72,21 @@ const Login = () => {
           required
         />
 
-        {error && (
-          <p className="text-red-500 text-sm mb-3">{error}</p>
-        )}
+        {error && <p className="text-red-500 text-sm mb-3">{error}</p>}
 
-        <a
-          href="/register"
-          className={`mb-4 inline-block text-sm ${
-            isDarkmodeEnabled
-              ? "text-blue-400 hover:underline"
-              : "text-blue-600 hover:underline"
-          }`}
+        <Link
+          to="/register"
+          className={`mb-4 inline-block text-sm ${isDarkmodeEnabled ? "text-blue-400 hover:underline" : "text-blue-600 hover:underline"}`}
         >
-          Don&apos;t have an account? Register
-        </a>
+          Don't have an account? Register
+        </Link>
 
         <button
           type="submit"
           disabled={loading}
           className={`
             w-full h-15 mt-2 rounded text-lg font-poppins font-semibold transition
-            ${
-              isDarkmodeEnabled
-                ? "bg-yellow-500 text-black hover:bg-yellow-400"
-                : "bg-yellow-400 text-black hover:bg-yellow-500"
-            }
+            ${isDarkmodeEnabled ? "bg-yellow-500 text-black hover:bg-yellow-400" : "bg-yellow-400 text-black hover:bg-yellow-500"}
           `}
         >
           {loading ? "Loading..." : "Login"}
